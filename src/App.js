@@ -1,23 +1,23 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import SearchForm from './components/SearchForm';
+import WeatherInfo from './components/WeatherInfo';
+import CityImage from './components/CityImage';
 import './App.css';
 
 function App() {
+  const [weatherData, setWeatherData] = useState(null);
+  const [cityImage, setCityImage] = useState(null);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Weather App</h1>
+      <SearchForm setWeatherData={setWeatherData} setCityImage={setCityImage} />
+      {weatherData && cityImage && (
+        <div className="container">
+          <WeatherInfo data={weatherData} />
+          <CityImage imageUrl={cityImage} />
+        </div>
+      )}
     </div>
   );
 }
