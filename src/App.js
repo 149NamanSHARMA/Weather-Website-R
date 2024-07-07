@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import SearchForm from './components/SearchForm';
-import WeatherInfo from './components/WeatherInfo';
-import CityImage from './components/CityImage';
+import SearchForm from './components/SearchForm.js';
+import WeatherInfo from './components/WeatherInfo.js';
+import CityImage from './components/CityImage.js';
 import './App.css';
 
 function App() {

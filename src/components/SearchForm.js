@@ -5,25 +5,14 @@ function SearchForm({ setWeatherData, setCityImage }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const weatherApiKey = process.env.REACT_APP_WEATHER_API_KEY;
-    const unsplashApiKey = process.env.REACT_APP_UNSPLASH_ACCESS_KEY;
 
     try {
-      const weatherResponse = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${weatherApiKey}&units=metric`);
-      if (!weatherResponse.ok) {
-        throw new Error('Weather data not found');
-      }
+      const weatherResponse = await fetch(`/.netlify/functions/fetchWeather?city=${city}`);
       const weatherData = await weatherResponse.json();
       setWeatherData(weatherData);
 
-      const imageResponse = await fetch(`https://api.unsplash.com/photos/random?query=${city}&client_id=${unsplashApiKey}`);
-      if (!imageResponse.ok) {
-        throw new Error('Image not found');
-      }
+      const imageResponse = await fetch(`/.netlify/functions/fetchImage?city=${city}`);
       const imageData = await imageResponse.json();
-      if (!imageData.urls || !imageData.urls.regular) {
-        throw new Error('Image URL not found');
-      }
       setCityImage(imageData.urls.regular);
     } catch (error) {
       console.error('Error fetching data:', error);
